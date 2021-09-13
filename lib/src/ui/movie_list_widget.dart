@@ -9,7 +9,13 @@ class MovieListWidget extends StatelessWidget {
   Widget _makeMovieOne(Movie movie) {
     return Row(
       children: [
-        Image.network(movie.posterUrl),
+        ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+          ),
+          child: Image.network(movie.posterUrl),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -48,21 +54,24 @@ class MovieListWidget extends StatelessWidget {
   Widget _makeListView(List<Movie> movies) {
     return ListView.separated(
       itemBuilder: (context, index) {
-        return Container(
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 3,
-                blurRadius: 3,
-                offset: Offset(0, 0),
-              ),
-            ],
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 3,
+                  offset: Offset(0, 0),
+                ),
+              ],
+            ),
+            child: _makeMovieOne(movies[index]),
           ),
-          child: _makeMovieOne(movies[index]),
         );
       },
       separatorBuilder: (context, index) {
